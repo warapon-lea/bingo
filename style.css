@@ -192,6 +192,52 @@ body {
     transform: scale(0.95);
 }
 
+/* Leave Room Buttons */
+.leave-room-btn {
+    background: #FF6B6B;
+    border: 3px solid #2D3436;
+    border-radius: 12px;
+    padding: 15px 30px;
+    font-size: 1.1rem;
+    font-weight: bold;
+    color: white;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    margin-top: 20px;
+    box-shadow: 0 4px 0 #2D3436;
+}
+
+.leave-room-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 0 #2D3436;
+}
+
+.leave-room-btn:active {
+    transform: translateY(2px);
+    box-shadow: 0 2px 0 #2D3436;
+}
+
+.leave-room-btn-small {
+    background: #FF6B6B;
+    border: 2px solid #2D3436;
+    border-radius: 10px;
+    padding: 8px 15px;
+    font-size: 0.85rem;
+    font-weight: bold;
+    color: white;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.leave-room-btn-small:hover {
+    background: #FF5252;
+    transform: translateY(-2px);
+}
+
+.leave-room-btn-small:active {
+    transform: scale(0.95);
+}
+
 /* Back Button */
 .back-btn {
     position: absolute;
@@ -246,23 +292,76 @@ body {
 }
 
 .members-list {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 10px;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+    gap: 15px;
+    margin-top: 15px;
 }
 
 .member-tag {
-    background: #4ECDC4;
-    color: white;
-    padding: 8px 15px;
-    border-radius: 20px;
-    font-size: 0.9rem;
-    font-weight: bold;
-    border: 2px solid #2D3436;
+    background: white;
+    border: 3px solid #4ECDC4;
+    border-radius: 12px;
+    padding: 12px 15px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    transition: all 0.2s ease;
+}
+
+.member-tag:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(78, 205, 196, 0.3);
 }
 
 .member-tag.leader {
-    background: #FF6B6B;
+    border-color: #FF6B6B;
+    background: #FFF5F5;
+}
+
+.member-tag.leader:hover {
+    box-shadow: 0 4px 12px rgba(255, 107, 107, 0.3);
+}
+
+.member-avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #4ECDC4, #44B3AA);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.2rem;
+    flex-shrink: 0;
+}
+
+.member-tag.leader .member-avatar {
+    background: linear-gradient(135deg, #FF6B6B, #EE5A5A);
+}
+
+.member-info {
+    flex: 1;
+    min-width: 0;
+}
+
+.member-name {
+    font-weight: bold;
+    color: #2D3436;
+    font-size: 0.95rem;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.member-role {
+    font-size: 0.75rem;
+    color: #636E72;
+    margin-top: 2px;
+}
+
+.member-tag.leader .member-role {
+    color: #FF6B6B;
+    font-weight: bold;
 }
 
 /* Missions Section */
@@ -325,6 +424,26 @@ body {
     font-size: 0.9rem;
 }
 
+.mission-type-badge {
+    display: inline-block;
+    padding: 4px 10px;
+    border-radius: 12px;
+    font-size: 0.75rem;
+    font-weight: bold;
+    margin-bottom: 10px;
+    border: 2px solid #2D3436;
+}
+
+.mission-type-badge.photo {
+    background: #4ECDC4;
+    color: white;
+}
+
+.mission-type-badge.quiz {
+    background: #A29BFE;
+    color: white;
+}
+
 .mission-btn {
     width: 100%;
     background: #4ECDC4;
@@ -350,6 +469,16 @@ body {
 
 .mission-btn.completed {
     background: #00D2A0;
+}
+
+.mission-btn.revoked {
+    background: #FF6B6B;
+    cursor: not-allowed;
+}
+
+.mission-card.revoked {
+    opacity: 0.7;
+    background: #FFF5F5;
 }
 
 /* Scoreboard */
@@ -426,6 +555,98 @@ body {
     font-size: 0.85rem;
     color: #636E72;
     margin-top: 3px;
+}
+
+.team-code {
+    font-size: 0.85rem;
+    color: #636E72;
+    margin-top: 8px;
+}
+
+.team-code strong {
+    color: #4ECDC4;
+    font-weight: bold;
+}
+
+/* Admin Members Display */
+.admin-members-list {
+    margin-top: 12px;
+    padding: 12px;
+    background: #F8F9FA;
+    border-radius: 10px;
+    border: 2px solid #DFE6E9;
+}
+
+.admin-members-label {
+    font-size: 0.85rem;
+    font-weight: bold;
+    color: #636E72;
+    margin-bottom: 8px;
+}
+
+.admin-members-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+}
+
+.admin-member-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    padding: 4px 10px;
+    border-radius: 12px;
+    font-size: 0.8rem;
+    font-weight: bold;
+    border: 2px solid #2D3436;
+}
+
+.admin-member-badge.leader {
+    background: #FF6B6B;
+    color: white;
+}
+
+.admin-member-badge.member {
+    background: #4ECDC4;
+    color: white;
+}
+
+/* Game Selector for Admin */
+.game-selector {
+    display: flex;
+    gap: 15px;
+    margin-bottom: 20px;
+}
+
+.game-selector-btn {
+    flex: 1;
+    padding: 20px;
+    background: white;
+    border: 3px solid #2D3436;
+    border-radius: 16px;
+    font-size: 1.1rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+}
+
+.game-selector-btn .btn-icon {
+    font-size: 2rem;
+}
+
+.game-selector-btn.active {
+    background: #FF6B6B;
+    color: white;
+    transform: translateY(-4px);
+}
+
+.game-selector-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
 }
 
 /* Admin Tabs */
@@ -539,6 +760,26 @@ body {
     flex: 1;
 }
 
+.admin-type-badge {
+    display: inline-block;
+    padding: 3px 8px;
+    border-radius: 10px;
+    font-size: 0.7rem;
+    font-weight: bold;
+    margin-bottom: 5px;
+    border: 2px solid #2D3436;
+}
+
+.admin-type-badge.photo {
+    background: #4ECDC4;
+    color: white;
+}
+
+.admin-type-badge.quiz {
+    background: #A29BFE;
+    color: white;
+}
+
 .mission-admin-title {
     font-size: 1.1rem;
     font-weight: bold;
@@ -613,6 +854,8 @@ body {
     color: #2D3436;
 }
 
+.mission-form-modal select,
+.mission-form-modal select,
 .mission-form-modal input[type="text"],
 .mission-form-modal input[type="number"],
 .mission-form-modal textarea {
@@ -624,6 +867,18 @@ body {
     font-family: inherit;
 }
 
+.mission-type-select {
+    background: white;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.mission-form-modal select {
+    cursor: pointer;
+    background: white;
+}
+
+.mission-form-modal select:focus,
 .mission-form-modal input[type="text"]:focus,
 .mission-form-modal input[type="number"]:focus,
 .mission-form-modal textarea:focus {
@@ -671,6 +926,135 @@ body {
     text-align: center;
     color: #636E72;
     padding: 40px 20px;
+}
+
+/* Schedule Settings */
+.schedule-container {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.schedule-card {
+    background: white;
+    border: 3px solid #2D3436;
+    border-radius: 16px;
+    padding: 25px;
+}
+
+.schedule-card h3 {
+    margin-bottom: 10px;
+    color: #2D3436;
+}
+
+.schedule-desc {
+    color: #636E72;
+    margin-bottom: 20px;
+    font-size: 0.9rem;
+}
+
+.datetime-input {
+    width: 100%;
+    padding: 12px;
+    border: 3px solid #2D3436;
+    border-radius: 12px;
+    font-size: 1rem;
+    font-family: inherit;
+}
+
+.datetime-input:focus {
+    outline: none;
+    border-color: #4ECDC4;
+}
+
+.current-schedule {
+    background: #F8F9FA;
+    border: 2px solid #DFE6E9;
+    border-radius: 12px;
+    padding: 15px;
+    margin: 20px 0;
+}
+
+.current-schedule p {
+    margin: 8px 0;
+    color: #2D3436;
+}
+
+.current-schedule strong {
+    color: #636E72;
+}
+
+.schedule-info {
+    background: #FFF9E6;
+    border: 3px solid #FFE66D;
+    border-radius: 16px;
+    padding: 20px;
+}
+
+.schedule-info h4 {
+    margin-bottom: 15px;
+    color: #2D3436;
+}
+
+.schedule-info ul {
+    list-style: none;
+    padding: 0;
+}
+
+.schedule-info li {
+    padding: 8px 0;
+    color: #2D3436;
+    border-bottom: 1px solid #FFE66D;
+}
+
+.schedule-info li:last-child {
+    border-bottom: none;
+}
+
+.schedule-info li strong {
+    color: #FFA502;
+}
+
+/* Schedule Message in Game */
+.schedule-message {
+    background: white;
+    border: 3px solid #2D3436;
+    border-radius: 16px;
+    padding: 40px 20px;
+    text-align: center;
+}
+
+.schedule-message.not-started {
+    border-color: #FFA502;
+    background: #FFF5E6;
+}
+
+.schedule-message.ended {
+    border-color: #FF6B6B;
+    background: #FFE6E6;
+}
+
+.schedule-icon {
+    font-size: 4rem;
+    margin-bottom: 20px;
+}
+
+.schedule-message h3 {
+    font-size: 1.5rem;
+    margin-bottom: 15px;
+    color: #2D3436;
+}
+
+.schedule-message p {
+    color: #636E72;
+    margin: 10px 0;
+}
+
+.schedule-time {
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: #2D3436;
+    margin-top: 15px !important;
 }
 
 .reset-btn {
@@ -828,6 +1212,35 @@ body {
     
     .mission-title {
         font-size: 1rem;
+    }
+    
+    /* Members List Mobile */
+    .members-list {
+        grid-template-columns: 1fr;
+    }
+    
+    .member-tag {
+        padding: 10px 12px;
+    }
+    
+    .member-avatar {
+        width: 35px;
+        height: 35px;
+        font-size: 1rem;
+    }
+    
+    .member-name {
+        font-size: 0.9rem;
+    }
+    
+    /* Admin Members Mobile */
+    .admin-members-list {
+        padding: 10px;
+    }
+    
+    .admin-member-badge {
+        font-size: 0.75rem;
+        padding: 3px 8px;
     }
     
     .modal-content {
@@ -1053,4 +1466,438 @@ body {
     .submit-btn {
         order: 1;
     }
+}
+
+/* ================================================
+   Rules Modal
+   ================================================ */
+.rules-modal {
+    max-width: 600px;
+    max-height: 80vh;
+    overflow-y: auto;
+}
+
+.rules-content {
+    text-align: left;
+    line-height: 1.8;
+    color: #2D3436;
+}
+
+.rules-content h4 {
+    color: #4ECDC4;
+    margin-top: 20px;
+    margin-bottom: 10px;
+    font-size: 1.1rem;
+}
+
+.rules-content ul {
+    margin: 10px 0;
+    padding-left: 25px;
+}
+
+.rules-content li {
+    margin-bottom: 8px;
+}
+
+.rules-content .rule-emoji {
+    margin-right: 5px;
+}
+
+/* ================================================
+   Countdown Timer
+   ================================================ */
+.countdown-timer {
+    background: linear-gradient(135deg, #FFE66D 0%, #FFA500 100%);
+    color: #2D3436;
+    padding: 8px 15px;
+    border-radius: 20px;
+    font-size: 0.85rem;
+    font-weight: bold;
+    border: 3px solid #2D3436;
+    box-shadow: 0 4px 0 #2D3436;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.countdown-timer.warning {
+    background: linear-gradient(135deg, #FF6B6B 0%, #FF4757 100%);
+    color: white;
+    animation: pulse 1.5s ease-in-out infinite;
+}
+
+@keyframes pulse {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+}
+
+.countdown-timer .timer-icon {
+    font-size: 1rem;
+}
+
+.countdown-timer .timer-text {
+    font-size: 0.9rem;
+}
+
+/* ================================================
+   Submissions Review (Admin)
+   ================================================ */
+.submissions-header {
+    margin-bottom: 20px;
+}
+
+.submissions-header h3 {
+    color: #2D3436;
+    margin-bottom: 15px;
+}
+
+.submissions-stats {
+    display: flex;
+    gap: 15px;
+    flex-wrap: wrap;
+    margin-top: 10px;
+}
+
+.stat-item {
+    background: white;
+    padding: 10px 15px;
+    border-radius: 12px;
+    border: 3px solid #2D3436;
+    box-shadow: 0 4px 0 #2D3436;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.stat-label {
+    font-size: 0.85rem;
+    color: #636E72;
+}
+
+.stat-value {
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: #4ECDC4;
+}
+
+.submissions-filters {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 20px;
+    flex-wrap: wrap;
+}
+
+.filter-select {
+    flex: 1;
+    min-width: 150px;
+    padding: 10px 15px;
+    border: 3px solid #2D3436;
+    border-radius: 12px;
+    font-size: 0.9rem;
+    font-weight: 500;
+    background: white;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.filter-select:focus {
+    outline: none;
+    border-color: #4ECDC4;
+    box-shadow: 0 0 0 3px rgba(78, 205, 196, 0.1);
+}
+
+.submissions-list {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.submission-card {
+    background: white;
+    padding: 20px;
+    border-radius: 12px;
+    border: 3px solid #2D3436;
+    box-shadow: 0 4px 0 #2D3436;
+    transition: transform 0.2s;
+}
+
+.submission-card.revoked {
+    opacity: 0.6;
+    background: #FFF5F5;
+    border-color: #FF6B6B;
+}
+
+.submission-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 15px;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.submission-info {
+    flex: 1;
+}
+
+.submission-team {
+    font-size: 1.1rem;
+    font-weight: bold;
+    color: #2D3436;
+    margin-bottom: 5px;
+}
+
+.submission-mission {
+    font-size: 0.95rem;
+    color: #636E72;
+    margin-bottom: 3px;
+}
+
+.submission-meta {
+    font-size: 0.85rem;
+    color: #B2BEC3;
+}
+
+.submission-points {
+    background: linear-gradient(135deg, #FFE66D 0%, #FFA500 100%);
+    color: #2D3436;
+    padding: 8px 15px;
+    border-radius: 20px;
+    font-weight: bold;
+    border: 3px solid #2D3436;
+    box-shadow: 0 3px 0 #2D3436;
+}
+
+.submission-status {
+    padding: 5px 12px;
+    border-radius: 15px;
+    font-size: 0.85rem;
+    font-weight: bold;
+    border: 2px solid #2D3436;
+}
+
+.submission-status.approved {
+    background: #00D2A0;
+    color: white;
+}
+
+.submission-status.revoked {
+    background: #FF6B6B;
+    color: white;
+}
+
+.submission-content {
+    margin: 15px 0;
+    padding: 15px;
+    background: #F8F9FA;
+    border-radius: 8px;
+    border: 2px solid #DFE6E9;
+}
+
+.submission-photo {
+    width: 100%;
+    max-width: 400px;
+    border-radius: 8px;
+    border: 3px solid #2D3436;
+    cursor: pointer;
+    transition: transform 0.2s;
+}
+
+.submission-photo:hover {
+    transform: scale(1.02);
+}
+
+.submission-answer {
+    font-size: 1.1rem;
+    color: #2D3436;
+    font-weight: 500;
+}
+
+.submission-answer-label {
+    font-size: 0.85rem;
+    color: #636E72;
+    margin-bottom: 5px;
+}
+
+.submission-actions {
+    display: flex;
+    gap: 10px;
+    margin-top: 15px;
+}
+
+.revoke-btn {
+    flex: 1;
+    padding: 12px 20px;
+    background: #FF6B6B;
+    color: white;
+    border: 3px solid #2D3436;
+    border-radius: 12px;
+    font-size: 0.95rem;
+    font-weight: bold;
+    cursor: pointer;
+    box-shadow: 0 4px 0 #2D3436;
+    transition: all 0.2s;
+}
+
+.revoke-btn:hover {
+    background: #FF5252;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 0 #2D3436;
+}
+
+.revoke-btn:active {
+    transform: translateY(2px);
+    box-shadow: 0 2px 0 #2D3436;
+}
+
+.revoke-btn:disabled {
+    background: #B2BEC3;
+    cursor: not-allowed;
+    opacity: 0.5;
+}
+
+.view-photo-btn {
+    padding: 12px 20px;
+    background: #4ECDC4;
+    color: white;
+    border: 3px solid #2D3436;
+    border-radius: 12px;
+    font-size: 0.95rem;
+    font-weight: bold;
+    cursor: pointer;
+    box-shadow: 0 4px 0 #2D3436;
+    transition: all 0.2s;
+}
+
+.view-photo-btn:hover {
+    background: #45B7AA;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 0 #2D3436;
+}
+
+.view-photo-btn:active {
+    transform: translateY(2px);
+    box-shadow: 0 2px 0 #2D3436;
+}
+
+.empty-submissions {
+    text-align: center;
+    padding: 40px 20px;
+    color: #B2BEC3;
+    font-size: 1.1rem;
+}
+
+/* Team Action Buttons in Scoreboard */
+.score-card .view-photo-btn {
+    padding: 8px 12px;
+    font-size: 0.85rem;
+}
+
+/* ================================================
+   Submissions Team Grid View
+   ================================================ */
+.submissions-team-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 15px;
+    margin-top: 20px;
+}
+
+.team-submission-card {
+    background: white;
+    padding: 20px;
+    border-radius: 12px;
+    border: 3px solid #2D3436;
+    box-shadow: 0 4px 0 #2D3436;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.team-submission-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 0 #2D3436;
+}
+
+.team-submission-card:active {
+    transform: translateY(0);
+    box-shadow: 0 2px 0 #2D3436;
+}
+
+.team-submission-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 15px;
+}
+
+.team-submission-icon {
+    font-size: 2rem;
+}
+
+.team-submission-info {
+    flex: 1;
+}
+
+.team-submission-name {
+    font-size: 1.1rem;
+    font-weight: bold;
+    color: #2D3436;
+    margin-bottom: 3px;
+}
+
+.team-submission-code {
+    font-size: 0.85rem;
+    color: #636E72;
+}
+
+.team-submission-stats {
+    display: flex;
+    gap: 15px;
+    margin-top: 15px;
+    padding-top: 15px;
+    border-top: 2px dashed #DFE6E9;
+}
+
+.team-stat {
+    flex: 1;
+    text-align: center;
+}
+
+.team-stat-value {
+    display: block;
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #4ECDC4;
+    margin-bottom: 3px;
+}
+
+.team-stat-label {
+    display: block;
+    font-size: 0.75rem;
+    color: #636E72;
+}
+
+.team-stat.revoked .team-stat-value {
+    color: #FF6B6B;
+}
+
+.team-stat.score .team-stat-value {
+    color: #FFE66D;
+}
+
+/* Revoked Reason Display */
+.revoked-reason {
+    background: #FFF5F5;
+    border: 2px solid #FF6B6B;
+    border-radius: 8px;
+    padding: 12px 15px;
+    margin: 10px 0;
+    color: #C0392B;
+    font-size: 0.9rem;
+}
+
+.revoked-reason strong {
+    color: #FF6B6B;
+    display: block;
+    margin-bottom: 5px;
 }

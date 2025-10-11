@@ -7,11 +7,40 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <!-- หน้าแรก -->
+    <!-- หน้าแรก - เลือกเกม -->
     <div id="welcome" class="container">
         <div class="header">
-            <h1>🚗 Road Trip Games</h1>
-            <p class="subtitle">เกมหาของสุดมันส์ระหว่างทาง!</p>
+            <h1>💻 TechOps Outing 2025</h1>
+            <p class="subtitle">เลือกเกมที่คุณต้องการเล่น!</p>
+        </div>
+        
+        <div class="welcome-menu">
+            <button class="menu-btn game-snapventure" data-game="snapventure">
+                <div class="btn-icon">🚗</div>
+                <div class="btn-title">Snapventure</div>
+                <div class="btn-desc">ถ่ายรูปตามภารกิจ</div>
+            </button>
+            
+            <button class="menu-btn game-wordguessing" data-game="wordguessing">
+                <div class="btn-icon">📝</div>
+                <div class="btn-title">Word Guessing</div>
+                <div class="btn-desc">ตอบคำถามทายคำ</div>
+            </button>
+            
+            <button class="menu-btn admin" id="adminMenuBtn">
+                <div class="btn-icon">👑</div>
+                <div class="btn-title">Admin Panel</div>
+                <div class="btn-desc">จัดการระบบและภารกิจ</div>
+            </button>
+        </div>
+    </div>
+
+    <!-- เมนูเกม - สร้าง/เข้าร่วมทีม -->
+    <div id="gameMenu" class="container" style="display: none;">
+        <div class="header">
+            <button class="back-btn" onclick="backToWelcome()">← กลับ</button>
+            <h1 id="gameMenuTitle">🎮 เกม</h1>
+            <p class="subtitle" id="gameMenuDesc">เลือกสร้างหรือเข้าร่วมทีม</p>
         </div>
         
         <div class="welcome-menu">
@@ -25,12 +54,6 @@
                 <div class="btn-icon">👥</div>
                 <div class="btn-title">เข้าร่วมทีม</div>
                 <div class="btn-desc">ใส่รหัสทีมที่ได้รับ</div>
-            </button>
-            
-            <button class="menu-btn admin" onclick="showAdmin()">
-                <div class="btn-icon">👑</div>
-                <div class="btn-title">Admin Panel</div>
-                <div class="btn-desc">จัดการระบบและภารกิจ</div>
             </button>
         </div>
     </div>
@@ -98,7 +121,6 @@
     <!-- หน้าเกม -->
     <div id="gameBoard" class="container" style="display: none;">
         <div class="header">
-            <button class="back-btn" onclick="confirmLeaveTeam()">← ออกจากทีม</button>
             <h2 id="teamName">ทีม</h2>
             <div class="team-info-box">
                 <div class="score-display">
@@ -115,7 +137,10 @@
         <div class="members-section">
             <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
                 <h3 style="margin: 0;">👥 สมาชิกในทีม</h3>
-                <button class="copy-code-btn" onclick="copyCurrentTeamCode()">📋 คัดลอกรหัส</button>
+                <div style="display: flex; gap: 8px;">
+                    <button class="copy-code-btn" onclick="copyCurrentTeamCode()">📋 คัดลอกรหัส</button>
+                    <button class="leave-room-btn-small" onclick="confirmLeaveRoom()">🚪 ออกจากห้อง</button>
+                </div>
             </div>
             <div id="membersList" class="members-list">
                 <!-- รายชื่อจะแสดงที่นี่ -->
@@ -124,7 +149,12 @@
 
         <!-- ภารกิจ -->
         <div class="missions-section">
-            <h3>🎯 ภารกิจทั้งหมด</h3>
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
+                <h3 style="margin: 0;">🎯 ภารกิจทั้งหมด</h3>
+                <div id="countdownTimer" class="countdown-timer" style="display: none;">
+                    <!-- Timer จะแสดงที่นี่ -->
+                </div>
+            </div>
             <div class="missions-container">
                 <!-- ภารกิจจะถูกสร้างที่นี่ผ่าน JavaScript -->
             </div>
@@ -149,17 +179,35 @@
         <div class="header">
             <button class="back-btn" onclick="backToWelcome()">← กลับ</button>
             <h2>👑 Admin Panel</h2>
-            <p class="subtitle">จัดการระบบ</p>
+            <p class="subtitle">เลือกเกมที่ต้องการจัดการ</p>
+        </div>
+
+        <!-- เลือกเกม -->
+        <div class="game-selector">
+            <button class="game-selector-btn active" data-admin-game="snapventure">
+                <div class="btn-icon">📸</div>
+                <div>Snap Venture</div>
+            </button>
+            <button class="game-selector-btn" data-admin-game="wordguessing">
+                <div class="btn-icon">💭</div>
+                <div>Word Guessing</div>
+            </button>
         </div>
 
         <!-- แท็บเมนู -->
         <div class="admin-tabs">
-            <button class="tab-btn active" onclick="showAdminTab('scoreboard')">🏆 คะแนนทีม</button>
-            <button class="tab-btn" onclick="showAdminTab('missions')">🎯 จัดการภารกิจ</button>
+            <button class="tab-btn active" data-tab="scoreboard">🏆 คะแนนทีม</button>
+            <button class="tab-btn" data-tab="submissions">📋 ตรวจสอบการส่งงาน</button>
+            <button class="tab-btn" data-tab="missions">🎯 จัดการภารกิจ</button>
+            <button class="tab-btn" onclick="showAdminTab('schedule')">⏰ ตั้งเวลา</button>
         </div>
 
         <!-- แท็บคะแนนทีม -->
         <div id="adminScoreboardTab" class="admin-tab-content">
+            <div style="text-align: center; margin-bottom: 15px; color: #636E72; font-size: 0.9rem;">
+                <span id="currentGameDisplay">กำลังแสดงทีมของเกม...</span>
+            </div>
+            
             <div class="scores-container" id="adminScoresContainer">
                 <!-- คะแนนจะแสดงที่นี่ -->
             </div>
@@ -171,6 +219,57 @@
             </div>
         </div>
 
+        <!-- แท็บตรวจสอบการส่งงาน -->
+        <div id="adminSubmissionsTab" class="admin-tab-content" style="display: none;">
+            <!-- View: Team List -->
+            <div id="submissionsTeamListView">
+                <div class="submissions-header">
+                    <h3>📋 เลือกทีมที่ต้องการตรวจสอบ</h3>
+                    <div class="submissions-stats" id="submissionsStats">
+                        <div class="stat-item">
+                            <span class="stat-label">✅ อนุมัติแล้ว:</span>
+                            <span class="stat-value" id="approvedCount">0</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-label">❌ ยกเลิกแล้ว:</span>
+                            <span class="stat-value" id="revokedCount">0</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-label">📊 ทั้งหมด:</span>
+                            <span class="stat-value" id="totalSubmissions">0</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="submissionsTeamList" class="submissions-team-grid">
+                    <!-- Team cards will be here -->
+                </div>
+            </div>
+
+            <!-- View: Team Submissions Detail -->
+            <div id="submissionsDetailView" style="display: none;">
+                <div class="submissions-header">
+                    <button class="back-btn" onclick="backToTeamList()">← กลับ</button>
+                    <h3 id="submissionsDetailTitle">📋 รายการส่งงาน</h3>
+                </div>
+
+                <div class="submissions-filters">
+                    <select id="filterMission" class="filter-select" onchange="loadTeamSubmissionsDetail()">
+                        <option value="all">ทุกภารกิจ</option>
+                    </select>
+                    <select id="filterStatus" class="filter-select" onchange="loadTeamSubmissionsDetail()">
+                        <option value="all">ทุกสถานะ</option>
+                        <option value="approved">อนุมัติแล้ว ✅</option>
+                        <option value="revoked">ยกเลิกแล้ว ❌</option>
+                    </select>
+                </div>
+
+                <div id="submissionsDetailContainer" class="submissions-list">
+                    <!-- Submissions will be here -->
+                </div>
+            </div>
+        </div>
+
         <!-- แท็บจัดการภารกิจ -->
         <div id="adminMissionsTab" class="admin-tab-content" style="display: none;">
             <div class="missions-admin-header">
@@ -179,6 +278,62 @@
             
             <div id="missionsAdminContainer" class="missions-admin-list">
                 <!-- รายการภารกิจจะแสดงที่นี่ -->
+            </div>
+        </div>
+
+        <!-- แท็บตั้งเวลา -->
+        <div id="adminScheduleTab" class="admin-tab-content" style="display: none;">
+            <div class="schedule-container">
+                <div class="schedule-card">
+                    <h3>⏰ กำหนดเวลาภารกิจ</h3>
+                    <p class="schedule-desc">ตั้งเวลาเริ่มและสิ้นสุดการทำภารกิจ</p>
+
+                    <div class="form-group">
+                        <label>📅 เริ่มทำภารกิจ:</label>
+                        <input type="datetime-local" id="scheduleStart" class="datetime-input">
+                    </div>
+
+                    <div class="form-group">
+                        <label>🏁 สิ้นสุดภารกิจ:</label>
+                        <input type="datetime-local" id="scheduleEnd" class="datetime-input">
+                    </div>
+
+                    <div class="current-schedule" id="currentScheduleDisplay">
+                        <p><strong>สถานะปัจจุบัน:</strong> <span id="scheduleStatus">-</span></p>
+                        <p><strong>เริ่ม:</strong> <span id="displayStart">-</span></p>
+                        <p><strong>สิ้นสุด:</strong> <span id="displayEnd">-</span></p>
+                    </div>
+
+                    <button class="submit-btn" onclick="saveSchedule()">💾 บันทึกเวลา</button>
+                    <button class="reset-btn" onclick="clearSchedule()">🗑️ ลบการตั้งเวลา</button>
+                </div>
+
+                <div class="schedule-card">
+                    <h3>👥 จำกัดจำนวนสมาชิกในทีม</h3>
+                    <p class="schedule-desc">กำหนดจำนวนสมาชิกสูงสุดที่สามารถเข้าร่วมทีมได้</p>
+
+                    <div class="form-group">
+                        <label>จำนวนสมาชิกสูงสุด (รวมหัวหน้าทีม):</label>
+                        <input type="number" id="maxMembersInput" min="2" max="20" value="5" class="datetime-input">
+                    </div>
+
+                    <div class="current-schedule">
+                        <p><strong>จำนวนสมาชิกสูงสุดปัจจุบัน:</strong> <span id="displayMaxMembers">5</span> คน</p>
+                    </div>
+
+                    <button class="submit-btn" onclick="saveMaxMembers()">💾 บันทึกการตั้งค่า</button>
+                </div>
+
+                <div class="schedule-info">
+                    <h4>📌 คำอธิบาย:</h4>
+                    <ul>
+                        <li><strong>ก่อนเวลาเริ่ม:</strong> ไม่แสดงภารกิจ แสดงข้อความ "ยังไม่ถึงเวลา"</li>
+                        <li><strong>ในช่วงเวลา:</strong> สามารถทำภารกิจได้ตามปกติ</li>
+                        <li><strong>หลังเวลาสิ้นสุด:</strong> ไม่สามารถทำภารกิจได้ แสดง "หมดเวลาแล้ว"</li>
+                        <li><strong>ไม่ตั้งเวลา:</strong> สามารถทำภารกิจได้ตลอดเวลา</li>
+                        <li><strong>จำกัดสมาชิก:</strong> ทีมที่เต็มแล้วจะไม่สามารถเข้าร่วมเพิ่มได้</li>
+                    </ul>
+                </div>
             </div>
         </div>
     </div>
@@ -200,12 +355,37 @@
         <div class="modal-content">
             <span class="close" onclick="closeModal()">&times;</span>
             <h3 id="modalTitle">ถ่ายรูป</h3>
-            <p id="modalDescription"></p>
             
             <input type="file" id="photoInput" accept="image/*" capture="environment">
             <div id="photoPreview"></div>
             
             <button class="submit-btn" onclick="submitMission()">✓ ยืนยันภารกิจ</button>
+        </div>
+    </div>
+
+    <!-- Modal สำหรับกฎกติกา -->
+    <div id="rulesModal" class="modal">
+        <div class="modal-content rules-modal">
+            <h3 style="text-align: center; margin-bottom: 20px;">📋 กฎกติกาการเล่น</h3>
+            <div id="rulesContent" class="rules-content">
+                <!-- จะถูกเติมข้อมูลผ่าน JavaScript -->
+            </div>
+            <button class="submit-btn" onclick="acceptRules()" style="margin-top: 20px;">✓ เข้าใจแล้ว เริ่มเล่นเลย!</button>
+        </div>
+    </div>
+
+    <!-- Modal สำหรับตอบคำถาม -->
+    <div id="quizModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeQuizModal()">&times;</span>
+            <h3 id="quizModalTitle">❓ ตอบคำถาม</h3>
+            
+            <div class="form-group" style="margin-top: 20px;">
+                <label>💭 คำตอบของคุณ:</label>
+                <input type="text" id="quizAnswerInput" placeholder="พิมพ์คำตอบ..." class="datetime-input">
+            </div>
+            
+            <button class="submit-btn" onclick="submitQuizAnswer()">✓ ส่งคำตอบ</button>
         </div>
     </div>
 
@@ -216,18 +396,30 @@
             <h3 id="missionFormTitle">➕ เพิ่มภารกิจใหม่</h3>
             
             <div class="form-group">
+                <label>ประเภทภารกิจ:</label>
+                <select id="missionType" class="mission-type-select" onchange="toggleMissionTypeFields()">
+                    <option value="photo">📸 ถ่ายรูป (Photo Mission)</option>
+                    <option value="quiz">❓ ตอบคำถาม (Quiz Mission)</option>
+                </select>
+            </div>
+
+            <div class="form-group">
                 <label>Emoji:</label>
                 <input type="text" id="missionEmoji" placeholder="🎯" maxlength="2">
             </div>
 
             <div class="form-group">
                 <label>ชื่อภารกิจ:</label>
-                <input type="text" id="missionTitle" placeholder="เช่น ถ่ายรูปกับหมา">
+                <input type="text" id="missionTitle" placeholder="เช่น ถ่ายรูปกับหมา, ตอบคำถาม: เมืองหลวงของไทย">
             </div>
 
-            <div class="form-group">
-                <label>รายละเอียด:</label>
-                <textarea id="missionDescription" placeholder="อธิบายภารกิจ" rows="3"></textarea>
+            <!-- ช่องคำตอบ (แสดงเฉพาะ Quiz) -->
+            <div class="form-group" id="answerField" style="display: none;">
+                <label>🔑 คำตอบที่ถูกต้อง:</label>
+                <input type="text" id="missionAnswer" placeholder="พิมพ์คำตอบ (ไม่สนใจตัวพิมพ์เล็ก-ใหญ่)">
+                <small style="color: #636E72; display: block; margin-top: 5px;">
+                    💡 ผู้เล่นต้องพิมพ์คำตอบให้ตรงกับนี้ถึงจะได้คะแนน
+                </small>
             </div>
 
             <div class="form-group">
@@ -244,13 +436,11 @@
         </div>
     </div>
 
-    <!-- Firebase SDK (ใช้แค่ 2 ตัว - ไม่ต้องใช้ Storage!) -->
+    <!-- Firebase SDK -->
     <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-database-compat.js"></script>
     
     <!-- Main App -->
-    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-database-compat.js"></script>
     <script src="app.js"></script>
 </body>
 </html>
